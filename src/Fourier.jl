@@ -8,5 +8,9 @@ include("calculus.jl")
 include("desmos.jl")
 include("plotting.jl")
 
+using .SVGTools
+using .Calculus
+using .Desmos
+using .Plotting
 
 end # module

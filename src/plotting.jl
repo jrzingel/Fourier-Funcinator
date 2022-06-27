@@ -1,11 +1,16 @@
 # d7399
 # Plotting methods
 
+module Plotting
+export makeanimation, draw, render
+
 using Plots
+using ..Calculus: RealSeries, Series
+
 plotlyjs()  # use the js backend
 
 """Animate math function"""
-function animatemath(f::Function, n::Integer, L::Number; step=0.1)::Animation
+function makeanimation(f::Function, n::Integer, L::Number; step=0.1)::Animation
     # n = Number of terms to calculate
     # L = what t/x needs to vary by to display the entire plot (default from -L to L)
     #
@@ -19,7 +24,7 @@ end
 
 
 """Make the animation"""
-function makeanimation(x::AbstractArray, y::AbstractArray; L=1)
+function makeanimation(x::AbstractArray, y::AbstractArray; L=1)::Animation
     # Support for y to be complex, but not x
     m = max(maximum(real.(y)), maximum(imag.(y)))
     anim = @animate for i ∈ 1:length(x)
@@ -32,7 +37,7 @@ end
 
 
 """Animate the series"""
-function makeanimation(series::Series; step=0.005)
+function makeanimation(series::Series; step=0.005)::Animation
     t = -1:step:1
     y = series.f.(t)
     return makeanimation(t, y)
@@ -54,3 +59,5 @@ end
 function render(anim::Animation, fps::Integer)
     gif(anim; fps=fps)
 end
+
+end # module

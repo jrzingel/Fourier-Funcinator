@@ -1,6 +1,9 @@
 # d7399
 # Calculus methods (and Fourier series calculation)
 
+module Calculus
+export fourier, trig_fourier
+
 using Statistics
 
 struct RealSeries
@@ -94,3 +97,5 @@ function fourier(path::AbstractArray, n::Integer)::Series
     ∑(x) = sum([cn[i+n+1]*exp(i*π*im*x) for i in -n:1:n])  # x ∈ [0, 1]
     return Series(cn, ∑)
 end
+
+end  # module

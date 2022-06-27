@@ -1,6 +1,8 @@
 # d7399
 # Convert a .svg shape file to a series of coordinates
 
+module SVGTools
+export processdrawing
 
 using LightXML
 
@@ -113,7 +115,8 @@ end
 
 
 """Function that runs the rest of the methods: from svg to points"""
-function convert(path::String; step=0.01)::Array{Float64}
+function processdrawing(path::String; step=0.01)::Array{Float64}
     tocoords(loadSVG(path); step=step)
 end
 
+end # module

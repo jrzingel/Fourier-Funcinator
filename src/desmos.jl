@@ -1,7 +1,11 @@
 # d7399
 # Desmos tools
 
+module Desmos
+export todesmos
+
 using Format
+using ..Calculus: Series
 
 
 """Convert the vectors to a format pasteable into desmos"""
@@ -55,3 +59,5 @@ end
 function todesmos(series::Series; dp=3)::String
     return todesmos(series.cn, 1; dp=dp)
 end
+
+end # module

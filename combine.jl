@@ -12,7 +12,7 @@ L = 1  # what does x need to vary by to display the entire plot
 #Fourier.render(anim, 15)
 
 
-path = Fourier.convert("man.svg"; step=0.1)
+path = Fourier.processdrawing("james.svg"; step=0.1)
 
 plot(path[:, 1], path[:, 2])
 
