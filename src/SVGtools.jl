@@ -45,8 +45,8 @@ function tocoords(d::String; step = 0.01, inverty=true)::Array{Float64}
             command *= c
         end
     end
-    if inverty; path[:, 2] *= -1 end  # computer graphics go upsidedown
-    return path
+   if inverty; path[:, 2] *= -1 end  # computer graphics go upsidedown
+   return path
 end
 
 

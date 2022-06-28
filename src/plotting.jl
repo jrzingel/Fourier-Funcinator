@@ -44,7 +44,7 @@ function makeanimation(series::Series; step=0.005)::Animation
 end
 
 
-"""Just the draw gif"""
+"""Just draw the gif using the plot backend"""
 function draw(series::Series; step=0.01, fps=15)
     t = -1:step:1
     y = series.f.(t)

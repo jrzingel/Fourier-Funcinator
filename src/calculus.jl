@@ -73,9 +73,9 @@ end
 """Normalise so largest number is 1"""
 function normalise!(x::AbstractArray)
     x[:, 1] .-= mean(x[:, 1])
-    x[:, 1] ./= argmax(abs2, x[:, 1])
+    x[:, 1] ./= abs(argmax(abs2, x[:, 1]))
     x[:, 2] .-= mean(x[:, 2])
-    x[:, 2] ./= argmax(abs2, x[:, 2])
+    x[:, 2] ./= abs(argmax(abs2, x[:, 2]))
 end
 
 
