@@ -79,7 +79,9 @@ function normalise!(x::AbstractArray)
 end
 
 
-"""Calculate complex fourier series from a series of points"""
+"""Calculate complex fourier series from a series of points
+The parameter t (or x) needs to vary by 1 overall. This is calculated to be from -1/2 to 1/2,
+but in practice it is easier to run it from 0-1. The only difference is that the curve wont start from the same location as the SVG"""
 function fourier(path::AbstractArray, n::Integer)::Series
     # L = 1 by default. (Then change to 1/2)
     normalise!(path)

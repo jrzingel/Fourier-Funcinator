@@ -7,10 +7,12 @@ include("SVGtools.jl")
 include("calculus.jl")
 include("desmos.jl")
 include("plotting.jl")
+include("video.jl")
 
 using .SVGTools
 using .Calculus
 using .Desmos
 using .Plotting
+using .Videos
 
 end # module
