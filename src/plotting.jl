@@ -2,7 +2,7 @@
 # Plotting methods
 
 module Plotting
-export draw, drawsubplots
+export drawplot, drawsubplots
 
 using Plots
 using ..Calculus: RealSeries, Series, fourier
@@ -37,7 +37,7 @@ function drawsubplots(x::AbstractArray, y::AbstractArray; L=1, fps=15)
     m = max(maximum(real.(y)), maximum(imag.(y)))
     anim = @animate for i ∈ 1:length(x)
         rai = plot(x[1:i], [real(y[1:i]), imag(y[1:i])], label=["real" "imaginary"], xlims=(-1, 1), ylims=(-m, m))
-        ri = plot(real(y[1:i]), imag(y[1:i]))
+        ri = plot(real(y[1:i]), imag(y[1:i]), xlims=(-1, 1), ylims=(-m, m))
         plot(rai, ri, layout=(1,2))
     end
     gif(anim; fps=fps)
@@ -45,7 +45,7 @@ end
 
 
 """Just draw the gif using the plot backend"""
-function draw(series::Series; step=0.01, fps=15)
+function drawplot(series::Series; step=0.01, fps=15)
     t = -1:step:1
     y = series.f.(t)
     anim = @animate for i ∈ 1:length(t)
