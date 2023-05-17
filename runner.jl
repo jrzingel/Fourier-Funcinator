@@ -6,10 +6,14 @@
 # - Run this code (Play button)
 
 # Activate @debug
+using Revise
 using Fourier
 ENV["JULIA_DEBUG"] = Fourier
 
 
-p = Fourier.load("james.svg")
-s = Fourier.series(p, 30)
-println(Fourier.todesmos(s))
+p = Fourier.load("spiral.svg")
+s = Fourier.series(p, 20)
+#println(Fourier.todesmos(s))
+
+println("Creating new series")
+Fourier.animate_series(s, fname="spiral.gif")
