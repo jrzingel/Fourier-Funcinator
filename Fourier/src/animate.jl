@@ -28,7 +28,7 @@ radius = circle
 r = line radius
 dir = opp direction of the line"""
 function drawwheel(radius::Number, r::Number, dir::Point; p=O, color="darkblue", edge="solid")
-    setopacity(0.3)
+    setopacity(0.2)
     sethue(color)
     circle(p, radius, :stroke)
     setdash(edge)
@@ -58,7 +58,7 @@ function path!(points, pos, color)
     circle.(points, 1, :fill)
 end
 
-function animate_series(series::Series; fname=Nothing, screen=600, frames=200, L=1/2)
+function animate_series(series::Series; fname=Nothing, screen=600, frames=400, L=1/2)
     # Must vary f from -L to L to view the full image
     t = collect(range(-1, 1, frames))  # vector
     c = series.f.(t)
@@ -78,43 +78,8 @@ function animate_series(series::Series; fname=Nothing, screen=600, frames=200, L
 
     # Upgraded method. n=0 first, then by decreasing radius
     segments = hcat(series.cn, -offset+1:1:offset-1)
-
     desc = sortperm(abs2.(segments[:,1]))  # descending order
     segments = segments[vcat(desc[1], reverse(desc[2:end])), :]
-
-    #=
-    segments = hcat(series.cn, -offset+1:1:offset-1)  # Wheels sorted largest to smallest
-    #sort!(segments, dims=1, by=x -> abs2(x[1]), rev=true)
-    segments = segments[sortperm(abs2.(segments[:,1]), rev=true),:]
-    =#
-
-    #= OLD METHOD
-    # Add constant wheel
-    r = abs(series.cn[offset]) * scale/2
-    θ = angle(series.cn[offset])   
-    o = Object((args...) -> drawwheel(r), O) 
-    lastpt += Point(r*cos(θ), -r*sin(θ))  # - to flip for computer graphics
-    push!(whls, Wheel(o, r, 0))
-    @debug (0) r θ lastpt
-    
-    i = 0
-    for row in eachrow(segments) 
-        i += 1
-        # cn[i+n+1] * exp(i*π*im*x) for i in -n:1:n (x vary from -1 to 1)
-        n = real(row[2])
-        if n != 0.0
-            rr = abs(row[1]) * scale/2
-            θ = angle(row[1]) #* exp(im*-1*π*n)) # -1 is where x should vary from 
-            lastpt += Point(rr*cos(θ), -rr*sin(θ))  # - to flip for computer graphics
-            o = Object((args...) -> drawwheel(rr), lastpt) 
-            #Object((args...) -> drawaxle(O, lastpt), O)
-            
-            ω = π * n / L
-            push!(whls, Wheel(o, rr, ω))
-            @debug (i, n) rr r θ ω/π lastpt
-        end
-    end
-    =#
 
     for i in 1:length(series.cn)
         w, lastpt = newwheel(segments, i, lastpt, L, screen)
@@ -125,7 +90,7 @@ function animate_series(series::Series; fname=Nothing, screen=600, frames=200, L
     trace = Point[]
     for i in 1:frames-1
         #Object(i:frames, (args...) -> drawline(i, [x y]))
-        Object(1:frames, (args...) -> drawline(i, [x y], edge="dashed")) 
+    #    Object(1:frames, (args...) -> drawline(i, [x y], edge="dashed")) 
     end
     Object(1:frames, (args...) -> path!(trace, pos(whls[end].obj), "red"))
 

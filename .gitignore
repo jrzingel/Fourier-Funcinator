@@ -2,3 +2,4 @@
 OLD_CODE/
 *.svg
 *.gif
+!examples/*.gif
